@@ -11,7 +11,7 @@
 class Solution {
     public ListNode insertionSortList(ListNode head) {
         // Create a dummy node to serve as the starting point of the sorted list.
-        ListNode dummy = new ListNode(0);
+        ListNode dummy = new ListNode(1000);
         // Initialize a 'prev' pointer to the dummy node.
         ListNode prev = dummy;
 
