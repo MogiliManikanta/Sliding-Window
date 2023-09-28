@@ -49,7 +49,7 @@ public class Solution {
         }
         
         // Calculate the middle index
-        int mid = (low + high) >> 1;
+        int mid = (low + high) / 2;
         
         // Recursively sort the left and right halves of the array
         mergeSort(nums, low, mid, count);
