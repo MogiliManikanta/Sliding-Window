@@ -1,34 +1,51 @@
-class Solution{
-public int[] findOrder(int numCourses, int[][] prerequisites) { 
-    if (numCourses == 0) return null;
-    // Convert graph presentation from edges to indegree of adjacent list.
-    int indegree[] = new int[numCourses], order[] = new int[numCourses], index = 0;
-    for (int i = 0; i < prerequisites.length; i++) // Indegree - how many prerequisites are needed.
-        indegree[prerequisites[i][0]]++;    
-
-    Queue<Integer> queue = new LinkedList<Integer>();
-    for (int i = 0; i < numCourses; i++) 
-        if (indegree[i] == 0) {
-            // Add the course to the order because it has no prerequisites.
-            order[index++] = i;
-            queue.offer(i);
+class Solution {
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        // Form a graph
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
+        for (int i = 0; i < numCourses; i++) { // Use 'numCourses' instead of 'n'
+            adj.add(new ArrayList<>());
         }
 
-    // How many courses don't need prerequisites. 
-    while (!queue.isEmpty()) {
-        int prerequisite = queue.poll(); // Already finished this prerequisite course.
-        for (int i = 0; i < prerequisites.length; i++)  {
-            if (prerequisites[i][1] == prerequisite) {
-                indegree[prerequisites[i][0]]--; 
-                if (indegree[prerequisites[i][0]] == 0) {
-                    // If indegree is zero, then add the course to the order.
-                    order[index++] = prerequisites[i][0];
-                    queue.offer(prerequisites[i][0]);
+        for (int i = 0; i < prerequisites.length; i++) { // Use 'prerequisites.length' instead of 'm'
+            adj.get(prerequisites[i][1]).add(prerequisites[i][0]);
+        }
+
+        int indegree[] = new int[numCourses];
+        for (int i = 0; i < numCourses; i++) {
+            for (int it : adj.get(i)) {
+                indegree[it]++;
+            }
+        }
+
+        Queue<Integer> q = new LinkedList<Integer>();
+        for (int i = 0; i < numCourses; i++) {
+            if (indegree[i] == 0) {
+                q.add(i);
+            }
+        }
+
+        int topo[] = new int[numCourses];
+        int ind = 0;
+
+        // Perform topological sort
+        while (!q.isEmpty()) {
+            int node = q.poll(); // Use poll() to remove and retrieve the element
+
+            topo[ind++] = node;
+
+            for (int it : adj.get(node)) {
+                indegree[it]--;
+                if (indegree[it] == 0) {
+                    q.add(it);
                 }
-            } 
+            }
         }
-    }
 
-    return (index == numCourses) ? order : new int[0];
-}
+        if (ind == numCourses) {
+            return topo;
+        }
+        
+        // If not all courses can be finished, return an empty array
+        return new int[0];
+    }
 }
