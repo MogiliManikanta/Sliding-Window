@@ -29,7 +29,7 @@ class Solution {
                         k++;
                         l--;
                         // skip the duplicates:
-                        while (k < n && nums[k] == nums[k - 1]) k++;
+                        while (k < n-2 && nums[k] == nums[k - 1]) k++;
                         while (l < n-3 && nums[l] == nums[l + 1]) l--;
                     } else if (sum < target) k++;
                     else l--;
