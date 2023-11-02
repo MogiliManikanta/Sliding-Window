@@ -1,13 +1,10 @@
 class Solution {
-    private boolean canEatAll(int[] piles, int K, int H) {
-        int countHour = 0; // Hours take to eat all bananas at speed K.
-        
+    private boolean canEatAll(int[] piles, int speed, int H) {
+        int hours = 0;
         for (int pile : piles) {
-            countHour += pile / K;
-            if (pile % K != 0)
-                countHour++;
+            hours += (pile - 1) / speed + 1;
         }
-        return countHour <= H;
+        return hours <= H;
     }
     public int minEatingSpeed(int[] piles, int h) {
         int left=1,right=max(piles);
