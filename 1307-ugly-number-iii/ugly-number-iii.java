@@ -4,16 +4,16 @@ public class Solution {
         
         int left = 0, right = (int) maxAns, result = 0;
         
-        while (left <= right) {
+        while (left < right) {
             int mid = left + (right - left) / 2;
             if (count(mid, a, b, c) >= n) {
-                result = mid;
-                right = mid - 1;
+                // result = mid;
+                right = mid;
             } else {
                 left = mid + 1;
             }
         }
-        return result;
+        return left;
     }
     
     int count(long num, long a, long b, long c) {
