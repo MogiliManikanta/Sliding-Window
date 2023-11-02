@@ -1,27 +1,32 @@
 class Solution {
-    boolean isPossible(int []piles ,int h ,int k){
-        int total=0;
-
-        for(int i=0;i<piles.length;i++) total+=Math.ceil((double)piles[i]/k);
-
-        return total<=h ;
+    private boolean canEatAll(int[] piles, int K, int H) {
+        int countHour = 0; // Hours take to eat all bananas at speed K.
+        
+        for (int pile : piles) {
+            countHour += pile / K;
+            if (pile % K != 0)
+                countHour++;
+        }
+        return countHour <= H;
     }
     public int minEatingSpeed(int[] piles, int h) {
-        int maxPile=Integer.MIN_VALUE;
-
-        for(int i=0;i<piles.length;i++) maxPile=Math.max(maxPile,piles[i]);
-
-        int l=1;
-        int r=maxPile;
-        //k will lie between 1 and maxPile as we need min val of k above maxPile we dont get min value of k
-        while(l<=r){
-          int mid=l+(r-l)/2;
-          if(isPossible(piles,h,mid)){
-           r=mid-1;
-          }
-          else l=mid+1;
+        int left=1,right=max(piles);
+        while(left<right){
+            int mid=left+(right-left)/2;
+            if(canEatAll(piles,mid,h)){
+                right=mid;
+            }
+            else{
+                left=mid+1;
+            }
         }
-
-        return l;
+        return left;
+    }
+    private int max(int[] nums){
+        int maxValue=Integer.MIN_VALUE;
+        for(int i:nums){
+            maxValue=Math.max(i,maxValue);
+        }
+        return maxValue;
     }
 }
