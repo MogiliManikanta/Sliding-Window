@@ -19,18 +19,34 @@ class Solution {
             Arrays.fill(dp,-1);
             return helper(nums,nums.length-1,dp); 
        */
-       int n=nums.length;
-       int[] dp = new int[n];
-       dp[0]=nums[0];
-       for(int i=1;i<n;i++){
-           int pick=nums[i];
-           if(i>1){
-               pick+=dp[i-2];
-           }
-           int notpick = 0+dp[i-1];
-           dp[i]=Math.max(pick,notpick);
-       }
-       return dp[n-1];
+        /*    
+            int n=nums.length;
+            int[] dp = new int[n];
+            dp[0]=nums[0];
+            for(int i=1;i<n;i++){
+                int pick=nums[i];
+                if(i>1){
+                    pick+=dp[i-2];
+                }
+                int notpick = 0+dp[i-1];
+                dp[i]=Math.max(pick,notpick);
+            }
+            return dp[n-1];
+        */
+        int n = nums.length;
+        int prev1=nums[0];
+        int prev2=0;
+        for(int i=1;i<n;i++){
+            int pick=nums[i];
+            if(i>1){
+                pick+=prev2;
+            }
+            int notpick = 0+prev1;
+            int curr = Math.max(pick,notpick);
+            prev2=prev1;
+            prev1=curr;
+        }
+        return prev1;
     }
 }
 /**class Solution {
