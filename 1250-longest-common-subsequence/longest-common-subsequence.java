@@ -63,7 +63,7 @@ class Solution {
         return function(m,n,text1,text2,dp);
     }
 }*/
-/*class Solution{
+class Solution{
     public int longestCommonSubsequence(String s,String t){
         int m = s.length();
         int n = t.length();
@@ -86,8 +86,8 @@ class Solution {
         }
         return dp[m][n];
     }
-}*/
-
+}
+/*
 class Solution{
     public int longestCommonSubsequence(String s,String t){
         int m = s.length();
@@ -99,7 +99,7 @@ class Solution{
         }
         /*for(int i=0;i<=m;i++){
             dp[i][0]=0;
-        }*/
+        }/
         for(int i=1;i<=m;i++){
             for(int j=1;j<=n;j++){
                 if(s.charAt(i-1)==t.charAt(j-1)){
@@ -113,4 +113,4 @@ class Solution{
         }
         return prev[n];
     }
-}
+}*/
