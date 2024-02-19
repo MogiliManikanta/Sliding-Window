@@ -4,8 +4,10 @@ class Solution {
         int res = 0, n = A.length, left = 0, right = n - 1, mod = (int)1e9 + 7;
         int[] pows = new int[n];
         pows[0] = 1;
-        for (int i = 1 ; i < n ; ++i)
+        for (int i = 1,index=0 ; i < n ; ++i){
             pows[i] = pows[i - 1] * 2 % mod;
+            System.out.print(pows[index++]+" ");
+        }
         while (left <= right) {
             if (A[left] + A[right] > target) {
                 right--;
