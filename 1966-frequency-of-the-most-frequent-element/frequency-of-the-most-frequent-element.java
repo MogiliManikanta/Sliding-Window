@@ -9,7 +9,7 @@ class Solution {
             currentSum += nums[right]; // Include the current element in the subarray sum
 
             // Check if the current subarray violates the condition (sum + k < nums[right] * length)
-            while (currentSum + k < (long) nums[right] * (right - left + 1)) {
+            while((long) nums[right] * (right - left + 1)-currentSum>k) {
                 currentSum -= nums[left]; // Adjust the subarray sum by removing the leftmost element
                 left++; // Move the left pointer to the right
             }
