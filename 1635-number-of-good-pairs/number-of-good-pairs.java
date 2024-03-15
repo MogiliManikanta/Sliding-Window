@@ -1,9 +1,17 @@
 class Solution {
-     public int numIdenticalPairs(int[] A) {
-        int res = 0, count[] = new int[101];
-        for (int a: A) {
-            res += count[a]++;
+    public int numIdenticalPairs(int[] guestList) {
+        HashMap<Integer, Integer> hm = new HashMap<>();
+        
+        int ans = 0;
+        
+        for(int friend:guestList)
+        {
+            int friendCount = hm.getOrDefault(friend,0);
+            ans+=friendCount;
+            hm.put(friend,friendCount+1);
         }
-        return res;
+        
+        
+        return ans;
     }
 }
