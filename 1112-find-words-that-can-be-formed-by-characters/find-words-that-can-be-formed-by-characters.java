@@ -1,15 +1,33 @@
 class Solution {
-        public int countCharacters(String[] words, String chars) {
-        int cnt[] = new int[26], ans = 0;
-        chars.chars().forEach(c -> ++cnt[c - 'a']); // count chars.
-outer: 
-        for (String w : words) {
-            int[] count = cnt.clone();
-            for (char c : w.toCharArray())
-                if (--count[c - 'a'] < 0) // not enough, continue next word in words.
-                    continue outer;
-            ans += w.length();
+    public int countCharacters(String[] words, String chars) {
+        int[] counts = new int[26];
+        // Step 1: Initialize Character Counts Array
+        for(int i=0;i<chars.length();i++)
+        {
+            counts[chars.charAt(i)-'a']++;
         }
-        return ans;
+        int res =0 ;
+        // Step 3: Check Words
+        for(String s : words)
+        {
+            if(canForm(s,counts))
+                // Step 4: Calculate Lengths
+                res+=s.length();
+        }
+        return res;
+    }
+
+    boolean canForm(String word, int[] counts)
+    {
+        int[] c = new int[26];
+        // Step 2: Update Counts Array
+        for(int i =0;i<word.length();i++)
+        {
+            int x = word.charAt(i)-'a';
+            c[x]++;
+            if(c[x] > counts[x])
+                return false;
+        }
+        return true;
     }
 }
