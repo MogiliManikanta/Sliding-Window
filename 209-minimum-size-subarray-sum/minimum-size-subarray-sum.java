@@ -8,13 +8,13 @@ class Solution {
        while(right<n){
            sum+=nums[right];
            right++;
-           if(sum>=target){
+        //    if(sum>=target){
                while(sum>=target){
                    shortest=Math.min(shortest,right-left);
                    sum-=nums[left];
                    left++;
                }
-           }
+        //    }
        }
        return shortest==Integer.MAX_VALUE ? 0 : shortest; 
     }
