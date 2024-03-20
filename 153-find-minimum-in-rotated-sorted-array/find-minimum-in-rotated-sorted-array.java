@@ -1,24 +1,37 @@
 class Solution 
 {
-    public int findMin(int[] nums) 
+    public int findMin(int[] arr) 
     {
-        int low = 0;
-        int high = nums.length-1;
-        // loop invariant: 1. low < high
-        //                 2. mid != high and thus A[mid] != A[high] (no duplicate exists)
-        //                 3. minimum is between [low, high]
-        // The proof that the loop will exit: after each iteration either the 'high' decreases
-        // or the 'low' increases, so the interval [low, high] will always shrink.
-        while (low < high) {
-            int mid = low + (high - low) / 2;
-            if (nums[mid] < nums[high])
-                // the mininum is in the left part
-                high = mid;
-            else if (nums[mid] > nums[high])
-                // the mininum is in the right part
-                low = mid + 1;
-        }
+        int low = 0, high = arr.length - 1;
+        int ans = Integer.MAX_VALUE;
+        while (low <= high) {
+            int mid = (low + high) / 2;
 
-        return nums[low];
+            //search space is already sorted
+            //then arr[low] will always be
+            //the minimum in that search space:
+            if (arr[low] <= arr[high]) {
+                ans = Math.min(ans, arr[low]);
+                break;
+            }
+
+            //if left part is sorted:
+            if (arr[low] <= arr[mid]) {
+                // keep the minimum:
+                ans = Math.min(ans, arr[low]);
+
+                // Eliminate left half:
+                low = mid + 1;
+
+            } else { //if right part is sorted:
+
+                // keep the minimum:
+                ans = Math.min(ans, arr[mid]);
+
+                // Eliminate right half:
+                high = mid - 1;
+            }
+        }
+        return ans;
     }
 }
