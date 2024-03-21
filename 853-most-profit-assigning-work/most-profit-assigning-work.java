@@ -1,38 +1,34 @@
+import java.util.Arrays;
+
 class Solution {
-    public int maxProfitAssignment(int[] diff, int[] profit, int[] worker) {
+    public int maxProfitAssignment(int[] diff, int[] profit, int[] workers) {
+        // Combine difficulties and profits into a 2D array
+        int[][] tasks = new int[diff.length][2];
+        for (int i = 0; i < diff.length; i++) {
+            tasks[i][0] = diff[i]; // Difficulty
+            tasks[i][1] = profit[i]; // Profit
+        }
 
-	int pair[][] = new int[diff.length][2];
-	for(int i = 0; i < diff.length; i++){
-		pair[i][0] = diff[i];
-		pair[i][1] = profit[i];
-	}
-	// sorting 2d array on basis of difficulty colmn
-	Arrays.sort(pair, new Comparator<int[]>() {
-		@Override
-		public int compare(int o1[], int o2[]){
-			return Integer.valueOf(o1[0]).compareTo(o2[0]);
-		}
-	});
+        Arrays.sort(tasks, (a, b) -> Integer.compare(a[0], b[0])); // Sort tasks by difficulty
 
-	int totalProfit = 0;
+        int totalProfit = 0;
+        Arrays.sort(workers); // Sort worker abilities
 
-	//MAGIC begins HERE
-	Arrays.sort(worker);
-	int bestPaySoFar = 0;
-	int i = 0;      // declaring globally creates MAGIC!!
+        int maxProfit = 0;
+        int taskIdx = 0;
 
-	for(int k = 0; k < worker.length; k++){
-		int ability = worker[k];
+        // Iterate over each worker's ability
+        for (int ability : workers) {
+            // Check tasks that worker can handle
+            while (taskIdx < tasks.length && ability >= tasks[taskIdx][0]) {
+                // Update max profit if current task's profit is greater
+                maxProfit = Math.max(maxProfit, tasks[taskIdx][1]);
+                taskIdx++; // Move to next task
+            }
 
-		while(i < pair.length && ability >= pair[i][0]){
-			if(bestPaySoFar < pair[i][1])
-				bestPaySoFar = pair[i][1];
-			i++;
-		}
+            totalProfit += maxProfit; // Add best profit to total profit
+        }
 
-		totalProfit += bestPaySoFar;
-	}
-
-	    return totalProfit;
+        return totalProfit;
     }
 }
