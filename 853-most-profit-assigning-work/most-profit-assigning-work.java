@@ -1,32 +1,45 @@
 import java.util.Arrays;
+import java.util.Comparator;
 
 class Solution {
-    public int maxProfitAssignment(int[] diff, int[] profit, int[] workers) {
-        // Combine difficulties and profits into a 2D array
-        int[][] tasks = new int[diff.length][2];
-        for (int i = 0; i < diff.length; i++) {
-            tasks[i][0] = diff[i]; // Difficulty
-            tasks[i][1] = profit[i]; // Profit
+    public int maxProfitAssignment(int[] diff, int[] profit, int[] worker) {
+
+        // Creating a 2D array to store difficulty-profit pairs
+        int pair[][] = new int[diff.length][2];
+
+        // Iterating through each element in the 'diff' array
+        for(int i = 0; i < diff.length; i++){
+            // Storing the difficulty and profit corresponding to each index 'i' in the 'pair' 2D array
+            pair[i][0] = diff[i];    // Assigning difficulty
+            pair[i][1] = profit[i];  // Assigning profit
         }
 
-        Arrays.sort(tasks, (a, b) -> Integer.compare(a[0], b[0])); // Sort tasks by difficulty
+        // Sorting the 2D array based on the difficulty column
+        Arrays.sort(pair, new Comparator<int[]>() {
+            @Override
+            public int compare(int o1[], int o2[]){
+                // Comparing the difficulty values at index 0 of each pair
+                // and returning the result of the comparison
+                return Integer.valueOf(o1[0]).compareTo(o2[0]);
+            }
+        });
 
         int totalProfit = 0;
-        Arrays.sort(workers); // Sort worker abilities
+        Arrays.sort(worker); // Sort worker abilities
 
-        int maxProfit = 0;
-        int taskIdx = 0;
+        int bestProfitSoFar = 0;
+        int taskIndex = 0;
 
-        // Iterate over each worker's ability
-        for (int ability : workers) {
+        // Iterate over each worker
+        for (int workerAbility : worker) {
             // Check tasks that worker can handle
-            while (taskIdx < tasks.length && ability >= tasks[taskIdx][0]) {
-                // Update max profit if current task's profit is greater
-                maxProfit = Math.max(maxProfit, tasks[taskIdx][1]);
-                taskIdx++; // Move to next task
+            while (taskIndex < pair.length && workerAbility >= pair[taskIndex][0]) {
+                // Update best profit if current task's profit is greater
+                bestProfitSoFar = Math.max(bestProfitSoFar, pair[taskIndex][1]);
+                taskIndex++; // Move to next task
             }
 
-            totalProfit += maxProfit; // Add best profit to total profit
+            totalProfit += bestProfitSoFar; // Add best profit to total profit
         }
 
         return totalProfit;
