@@ -1,30 +1,33 @@
 class Solution {
-    public  boolean condition(int divisor,int[] nums,int threshold) {
-        int sum = 0;
-        for (int num : nums) {
-            sum += (num - 1) / divisor + 1;
+    public int smallestDivisor(int[] arr, int limit) {
+        int n = arr.length; //size of array.
+        if(n > limit) return -1;
+        //Find the maximum element:
+        int maxi = Integer.MIN_VALUE;
+        for (int i = 0; i < n; i++) {
+            maxi = Math.max(maxi, arr[i]);
         }
-        return sum <= threshold;
-    }
-    public int smallestDivisor(int[] nums, int threshold) {
-        int left = 1;
-        int right = max(nums);
 
-    while (left <= right) {
-        int mid = left + (right - left) / 2;
-        if (condition(mid,nums,threshold)) {
-            right = mid-1;
-        } else {
-            left = mid + 1;
+        int low = 1, high = maxi;
+
+        //Apply binary search:
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (sumByD(arr, mid) <= limit) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
         }
+        return low;
     }
-    return left;
-    }
-    public int max(int[] nums){
-        int maxValue=0;
-        for(int i:nums){
-            maxValue = Math.max(i,maxValue);
+    public int sumByD(int[] arr, int div) {
+        int n = arr.length; //size of array
+        //Find the summation of division values:
+        int sum = 0;
+        for (int i = 0; i < n; i++) {
+            sum += Math.ceil((double)(arr[i]) / (double)(div));
         }
-        return maxValue;
+        return sum;
     }
 }
