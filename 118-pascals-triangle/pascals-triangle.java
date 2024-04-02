@@ -1,14 +1,24 @@
 class Solution {
-    public List<List<Integer>> generate(int numRows) {
-         List<List<Integer>> allrows = new ArrayList<List<Integer>>();
-        ArrayList<Integer> row = new ArrayList<Integer>();
-        for(int i=0;i<numRows;i++)
-        {
-            row.add(0, 1);
-            for(int j=1;j<row.size()-1;j++)
-                row.set(j, row.get(j)+row.get(j+1));
-            allrows.add(new ArrayList<Integer>(row));
+    public List<Integer> generateRow(int row) {
+        long ans = 1;
+        List<Integer> ansRow = new ArrayList<>();
+        ansRow.add(1); //inserting the 1st element
+
+        //calculate the rest of the elements:
+        for (int col = 1; col < row; col++) {
+            ans = ans * (row - col);
+            ans = ans / col;
+            ansRow.add((int)ans);
         }
-        return allrows;
+        return ansRow;
+    }
+    public List<List<Integer>> generate(int n) {
+        List<List<Integer>> ans = new ArrayList<>();
+
+        //store the entire pascal's triangle:
+        for (int row = 1; row <= n; row++) {
+            ans.add(generateRow(row));
+        }
+        return ans;
     }
 }
