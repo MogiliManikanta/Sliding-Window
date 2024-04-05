@@ -1,23 +1,33 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+
 class Solution {
     public int countPrimes(int n) {
-        boolean[] isPrime = new boolean[n];
-        for(int i=2;i<n;i++){
-            isPrime[i]=true;
-        }
-        for(int i=2;i*i<n;i++){
-            if(!isPrime[i]){
-                continue;
+        // Initialize an ArrayList to store prime numbers
+        ArrayList<Integer> al = new ArrayList<>();
+        
+        // Convert n to long
+        long N = (long)n;
+        
+        // Initialize an array to mark prime numbers
+        boolean isPrime[] = new boolean[(int)(N + 1)];
+
+        // Arrays.fill(isPrime, true) initializes the array with true values
+        Arrays.fill(isPrime, true);
+
+        // Iterate from 2 to (N-1)
+        for (int i = 2; i < N; i++) {
+            if (isPrime[i]) {
+                // If i is prime, add it to the list
+                al.add(i);
             }
-            for(int j=i*i;j<n;j+=i){
-                isPrime[j]=false;
+            // Mark multiples of i as non-prime
+            for (long j = (long)i * i; j <= N; j += i) {
+                isPrime[(int)j] = false;
             }
         }
-        int count=0;
-        for(int i=2;i<n;i++){
-            if(isPrime[i]){
-                count++;
-            }
-        }
-        return count;
+        
+        // Return the size of the list, which is the count of prime numbers
+        return al.size();
     }
 }
