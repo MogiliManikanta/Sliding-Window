@@ -7,7 +7,7 @@ class Solution {
         // If the length of the string is less than or equal to k, we can change all characters to the same character and get the length of the string as the result.
         if(s.length()<=k){
             return s.length();
-        }
+         }
         // Create a HashMap to store the count of characters in the current window.
         HashMap<Character,Integer>map = new HashMap<>();
         // Initialize variables: left pointer, result (maximum length of substring with repeating characters), and maxCount (maximum count of repeating characters in any window).
