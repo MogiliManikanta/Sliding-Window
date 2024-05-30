@@ -1,25 +1,23 @@
 class Solution {
-        public int minOperations(int[] nums) {
-        Arrays.sort(nums); // Sort the array
-        
-        int n = nums.length;
-        int maxNumsInWindow = 0;
-        
-        Deque<Integer> numsInWindow = new ArrayDeque<>();
+    public int minOperations(int[] nums) {
+        int length = nums.length;
+        int minOperations = length;
+        Set<Integer> uniqueNums = new HashSet<>();
         for (int num : nums) {
-            // Advance the window
-            while (numsInWindow.size() > 0 && num - numsInWindow.peekFirst() >= n) {
-                numsInWindow.poll();
-            }
-            
-            // Add the new number to the window (if it's not a duplicate)
-            if(numsInWindow.size() == 0 || ! numsInWindow.peekLast().equals(num)) {
-                numsInWindow.offer(num);            
-            }
-            
-            maxNumsInWindow = Math.max(maxNumsInWindow, numsInWindow.size());
+            uniqueNums.add(num);
         }
-        
-        return n - maxNumsInWindow;
+        Integer[] sortedUniqueNums = uniqueNums.toArray(new Integer[uniqueNums.size()]);
+        Arrays.sort(sortedUniqueNums);
+        int right = 0;
+
+        for (int left = 0; left < sortedUniqueNums.length; left++) {
+            while (right < sortedUniqueNums.length && sortedUniqueNums[right] < sortedUniqueNums[left] + length) {
+                right++;
+            }
+
+            minOperations = Math.min(minOperations, length - (right - left));
+        }
+
+        return minOperations;        
     }
 }
