@@ -1,21 +1,32 @@
 class Solution {
     public int maxConsecutiveAnswers(String answerKey, int k) {
-        int countT = 0, countF = 0, res = 0;//self explanatory 
-        
-        for(int i = 0, j = 0; j < answerKey.length(); j++) {// [i......j] window
-            if(answerKey.charAt(j) == 'T') 
+        int n = answerKey.length();
+        int start = 0;
+        int countT = 0, countF = 0; // Counters for 'T' and 'F' characters
+        int maxLen = 0; // Maximum consecutive answers
+
+        for (int end = 0; end < n; end++) {
+            // Update counters based on the current character
+            if (answerKey.charAt(end) == 'T') {
                 countT++;
-            else
+            } else {
                 countF++;
-            
-            while(Math.min(countT, countF) > k) {//whenever the minimum exceeds k, slide window until it doesn't
-                if(answerKey.charAt(i++) == 'T') 
-                    countT--;
-                else
-                    countF--;
             }
-            res = Math.max(res, j - i + 1);//take maximum length
+
+            // If both counters exceed 'k', shrink the window from the left
+            while (countT > k && countF > k) {
+                if (answerKey.charAt(start) == 'T') {
+                    countT--;
+                } else {
+                    countF--;
+                }
+                start++;
+            }
+
+            // Update the maximum consecutive answers
+            maxLen = Math.max(maxLen, end - start + 1);
         }
-        return res;
+
+        return maxLen;
     }
 }
