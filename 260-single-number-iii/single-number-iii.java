@@ -1,33 +1,27 @@
-/*class Solution {
+public class Solution {
     public int[] singleNumber(int[] nums) {
-        
-    }
-}*/
-class Solution {
-    public int[] singleNumber(int[] Arr) {
-        int[] result = new int[2];
-        int N = Arr.length;
-        // Calculate XOR of all elements in the array
-        int numXor = 0;
-        for (int num : Arr) {
-            numXor ^= num;
+        // Pass 1 : 
+        // Get the XOR of the two numbers we need to find
+        int diff = 0;
+        for (int num : nums) {
+            diff ^= num;
         }
-
-        // Find the rightmost set bit
-        int rightBit = numXor & -numXor;
-
-        // Separate the numbers into two groups based on the rightmost set bit
-        int a = 0, b = 0;
-        for (int num : Arr) {
-            if ((num & rightBit) != 0) {
-                a ^= num;
-            } else {
-                b ^= num;
+        // Get its last set bit
+        diff &= -diff;
+        
+        // Pass 2 :
+        int[] rets = {0, 0}; // this array stores the two numbers we will return
+        for (int num : nums)
+        {
+            if ((num & diff) == 0) // the bit is not set
+            {
+                rets[0] ^= num;
+            }
+            else // the bit is set
+            {
+                rets[1] ^= num;
             }
         }
-
-        result[0] = a;
-        result[1] = b;
-        return result;
+        return rets;
     }
 }
