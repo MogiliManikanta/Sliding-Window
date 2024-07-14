@@ -13,7 +13,6 @@ class Solution {
                 break;
             }
         }
-
         // If 'index1' is still -1, it means the number is in decreasing order, and no greater number can be formed.
         if (index1 == -1) {
             return -1;
@@ -25,17 +24,13 @@ class Solution {
                     break;
                 }
             }
-
             // Swap the digits at 'index1' and 'index2'.
             swap(nums, index1, index2);
-
             // Reverse the digits to the right of 'index1' to get the smallest greater number.
             reverse(nums, index1 + 1);
         }
-
         // Convert the character array back to a long number.
         long number = Long.parseLong(new String(nums));
-
         // Check if the number is greater than the maximum value of an integer.
         // If it is, return -1; otherwise, return the integer value.
         return number > Integer.MAX_VALUE ? -1 : (int) number;
