@@ -2,7 +2,6 @@ class Solution {
     public void setZeroes(int[][] matrix) {
         boolean firstColumn = false; // Flag to check if the first column should be set to zero
         boolean firstRow = false; // Flag to check if the first row should be set to zero
-        
         // Check if the first row contains any zeros
         for (int i = 0; i < matrix[0].length; i++) {
             if (matrix[0][i] == 0) {
