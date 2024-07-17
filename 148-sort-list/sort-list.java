@@ -9,30 +9,54 @@
  * }
  */
 public class Solution {
+    ListNode findMiddle(ListNode head){
+        // If the list is empty or has only one node
+        // the middle is the head itself
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        // Initializing slow and fast pointers
+        ListNode slow = head;
+        ListNode fast = head.next;
+
+        // Move the fast pointer twice
+        // as fast as the slow pointer
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        
+        // When the fast pointer reaches the end,
+        // the slow pointer will be at the middle
+        return slow;
+    }
   
   public ListNode sortList(ListNode head) {
-    if (head == null || head.next == null)
-      return head;
-        
-    // step 1. cut the list to two halves
-    ListNode prev = null, slow = head, fast = head;
-    
-    while (fast != null && fast.next != null) {
-      prev = slow;
-      slow = slow.next;
-      fast = fast.next.next;
+    // Base case: if the list is empty or
+    // has only one node, it is already
+    // sorted, so return the head
+    if (head == null || head.next == null) {
+        return head;
     }
     
-    prev.next = null;
+    // Find the middle of the list
+    // using the findMiddle function
+    ListNode middle = findMiddle(head);
     
-    // step 2. sort each half
-    ListNode l1 = sortList(head);
-    ListNode l2 = sortList(slow);
+    // Divide the list into two halves
+    ListNode right = middle.next;
+    middle.next = null;
+    ListNode left = head;
     
-    // step 3. merge l1 and l2
-    return merge(l1, l2);
+    // Recursively sort the left and right halves
+    left = sortList(left);
+    right = sortList(right);
+    
+    // Merge the sorted halves using the
+    // mergeTwoSortedLinkedLists function
+    return merge(left,right);
   }
-  
   ListNode merge(ListNode l1, ListNode l2) {
     ListNode l = new ListNode(0), p = l;
     
