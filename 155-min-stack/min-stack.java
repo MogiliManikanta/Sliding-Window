@@ -1,12 +1,10 @@
 class MinStack {
     Stack < Long > st = new Stack < Long > ();
     Long mini;
-
     /** initialize your data structure here. */
     public MinStack() {
         mini = Long.MAX_VALUE;
     }
-
     public void push(int value) {
         Long val = Long.valueOf(value);
         if (st.isEmpty()) {
@@ -21,16 +19,13 @@ class MinStack {
             }
         }
     }
-
     public void pop() {
         if (st.isEmpty()) return;
-
         Long val = st.pop();
         if (val < mini) {
             mini = 2 * mini - val;
         }
     }
-
     public int top() {
         Long val = st.peek();
         if (val < mini) {
@@ -38,7 +33,6 @@ class MinStack {
         }
         return val.intValue();
     }
-
     public int getMin() {
         return mini.intValue();
     }
