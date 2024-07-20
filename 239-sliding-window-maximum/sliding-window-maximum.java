@@ -14,8 +14,8 @@ class Solution {
         
         for (int currentIndex = 0; currentIndex < nums.length; currentIndex++) {
             // Remove numbers from the front of the deque that are out of the current window
-            while (!deque.isEmpty() && deque.peekFirst() < currentIndex - k + 1) {
-                deque.pollFirst();
+            while (!deque.isEmpty() && deque.peek() < currentIndex - k + 1) {
+                deque.poll();
             }
             
             // Remove smaller numbers from the back of the deque as they are not needed for maximum calculation
@@ -27,9 +27,9 @@ class Solution {
             deque.offer(currentIndex);
             
             // If the current index is within the first valid window (k-1 or more elements in the window),
-            // add the maximum value in the current window to the result array
+            // add the maximum value in the current window to the result array front
             if (currentIndex >= k - 1) {
-                result[resultIndex++] = nums[deque.peekFirst()];
+                result[resultIndex++] = nums[deque.peek()];
             }
         }
         
