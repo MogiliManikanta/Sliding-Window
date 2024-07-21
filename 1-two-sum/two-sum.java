@@ -14,4 +14,3 @@ class Solution {
         return result;
     }
 }
-/** simple  and easy once */
