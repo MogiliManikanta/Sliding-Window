@@ -1,7 +1,11 @@
 class Solution {
     public int[][] merge(int[][] intervals) {
         // Sorting intervals by their starting value
-        Arrays.sort(intervals, Comparator.comparingInt(a -> a[0]));
+        Arrays.sort(intervals, new Comparator<int[]>() {
+            public int compare(int[] a, int[] b) {
+                return a[0] - b[0];
+            }
+        });
         
         List<int[]> merged = new ArrayList<>();
         for (int[] interval : intervals) {
