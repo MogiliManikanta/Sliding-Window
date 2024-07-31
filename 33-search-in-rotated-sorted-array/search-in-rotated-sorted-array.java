@@ -6,7 +6,7 @@ class Solution {
             if (arr[mid] == target)
                 return mid; // <---step 4
             if (arr[low] <= arr[mid]) { //<---step 5
-                if (arr[low] <= target && arr[mid] >= target)
+                if (arr[low] <= target && target <= arr[mid])
                     high = mid - 1; //<---step 6 
                 else
                     low = mid + 1; //<---step 7
