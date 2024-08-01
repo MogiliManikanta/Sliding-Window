@@ -8,7 +8,6 @@ class Solution {
         }
         return maxi;
     }
-
     public int calculateTotalHours(int[] v, int hourly) {
         int totalH = 0;
         int n = v.length;
@@ -18,10 +17,8 @@ class Solution {
         }
         return totalH;
     }
-
     public  int minEatingSpeed(int[] v, int h) {
         int low = 1, high = findMax(v);
-
         //apply binary search:
         while (low <= high) {
             int mid = (low + high) / 2;
