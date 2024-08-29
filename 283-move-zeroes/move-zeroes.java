@@ -1,14 +1,15 @@
 class Solution {
-    public void moveZeroes(int[] nums) {
-        int n=nums.length;
-        int index=0;
-        for(int ele : nums){
-            if(ele!=0){
-                nums[index++]=ele;
+     public void moveZeroes(int[] nums) {
+        int snowBallSize = 0; 
+        for (int i=0;i<nums.length;i++){
+	        if (nums[i]==0){
+                snowBallSize++; 
             }
-        }
-        while(index<n){
-            nums[index++]=0;
+            else if (snowBallSize > 0) {
+	            int t = nums[i];
+	            nums[i]=0;
+	            nums[i-snowBallSize]=t;
+            }
         }
     }
 }
