@@ -1,13 +1,13 @@
 class Solution 
 {
-    public int missingNumber(int[] nums) 
+    public int missingNumber(int[] arr) 
     {
-        int sum = 0;
-        int n = nums.length;
-        int sum_ext = (n * (n+1))/2;
+        int n=arr.length;
+        int sum_Of_N_Natural_Numbers = (n*((n+1))/2);
+        int sum=0;
         for(int i=0;i<n;i++){
-            sum = sum + nums[i];
+            sum+=arr[i];
         }
-        return sum_ext - sum;
+        return sum_Of_N_Natural_Numbers-sum;
     }
 }
