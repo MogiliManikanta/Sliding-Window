@@ -4,7 +4,6 @@ class Solution {
         int n = v.length;
         int cnt = 0; // count
         int el = 0; // Element
-
         //applying the algorithm:
         for (int i = 0; i < n; i++) {
             if (cnt == 0) {
