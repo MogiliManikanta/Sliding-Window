@@ -1,4 +1,29 @@
 class Solution {
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>>result=new ArrayList<>();
+        for(int row=1;row<=numRows;row++){
+            result.add(generateRows(row));
+        }
+        return result;
+    }
+    public List<Integer> generateRows(int row){
+        List<Integer> tempRow = new ArrayList<>();
+        tempRow.add(1);
+        int res=1;
+        for(int column=1;column<row;column++){
+            res=res*(row-column);
+            res=res/column;
+            tempRow.add(res);
+        }
+        return tempRow;
+    }
+}
+/***
+
+
+
+
+class Solution {
     public List<Integer> generateRow(int row) {
         long ans = 1;
         List<Integer> ansRow = new ArrayList<>();
@@ -54,3 +79,12 @@ class Solution {
 //         return ans;
 //     }
 // }
+
+
+
+
+
+
+
+
+ */
