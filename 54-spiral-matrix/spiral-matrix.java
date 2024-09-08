@@ -1,48 +1,38 @@
-public class Solution {
+class Solution {
     public List<Integer> spiralOrder(int[][] matrix) {
-        List<Integer> res = new ArrayList<Integer>();
-        if (matrix.length == 0) {
-            return res;
-        }
-        int rowBegin = 0;
-        int rowEnd = matrix.length-1;
-        int colBegin = 0;
-        int colEnd = matrix[0].length - 1;
+        int rowBegin =0;
+        int columnBegin=0;
+        int rowEnd=matrix.length-1;
+        int columnEnd = matrix[0].length-1;
         int dir=0;
-        while (rowBegin <= rowEnd && colBegin <= colEnd) {
-            // Traverse Right
+        ArrayList<Integer> result=new ArrayList<>();
+        while(rowBegin<=rowEnd && columnBegin<=columnEnd){
             if(dir==0){
-                for (int j = colBegin; j <= colEnd; j ++) {
-                    res.add(matrix[rowBegin][j]);
+                for(int i=columnBegin;i<=columnEnd;i++){
+                    result.add(matrix[rowBegin][i]);
                 }
                 rowBegin++;
             }
-            // Traverse Down
             else if(dir==1){
-                for (int j = rowBegin; j <= rowEnd; j ++) {
-                    res.add(matrix[j][colEnd]);
+                for(int i=rowBegin;i<=rowEnd;i++){
+                    result.add(matrix[i][columnEnd]);
                 }
-                colEnd--;
+                columnEnd--;
             }
-            else if (dir==2) {
-                // Traverse Left
-                for (int j = colEnd; j >= colBegin; j --) {
-                    res.add(matrix[rowEnd][j]);
+            else if(dir==2){
+                for(int i=columnEnd;i>=columnBegin;i--){
+                    result.add(matrix[rowEnd][i]);
                 }
                 rowEnd--;
-
             }
-            
             else{
-                // Traver Up
-                for (int j = rowEnd; j >= rowBegin; j --) {
-                    res.add(matrix[j][colBegin]);
+                for(int i=rowEnd;i>=rowBegin;i--){
+                    result.add(matrix[i][columnBegin]);
                 }
-                colBegin ++;
+                columnBegin++;
             }
             dir=(dir+1)%4;
         }
-        
-        return res;
+        return result;
     }
 }
