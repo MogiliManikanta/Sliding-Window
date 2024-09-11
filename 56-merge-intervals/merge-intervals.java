@@ -1,12 +1,12 @@
 class Solution {
     public int[][] merge(int[][] intervals) {
-        Arrays.sort(intervals, new Comparator<int[]>(){
-            public int compare(int[]a ,int[]b){
-                return a[0]-b[0];
-            }
-        });
+        // Arrays.sort(intervals, new Comparator<int[]>(){
+        //     public int compare(int[]a ,int[]b){
+        //         return a[0]-b[0];
+        //     }
+        // });
 
-        // Arrays.sort(intervals, (a,b)-> Integer.compareTo(a,b));
+        Arrays.sort(intervals, (a,b)-> Integer.compare(a[0],b[0]));
         List<int[]> result = new ArrayList<>();
         for(int[] interval : intervals){
             int start = interval[0];
