@@ -6,6 +6,7 @@ class Solution {
                 return a[0] - b[0];
             }
         });
+        // Arrays.sort(intervals, (i1, i2) -> Integer.compare(i1[0], i2[0]));
         List<int[]> merged = new ArrayList<>();
         for (int[] interval : intervals) {
     // If merged list is empty or current interval doesn't overlap with the last one in merged
