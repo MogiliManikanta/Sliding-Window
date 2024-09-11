@@ -1,16 +1,28 @@
 class Solution {
     public int maxProduct(int[] arr) {
-        int n = arr.length; //size of array.
+        int n = arr.length;
 
-        int pre = 1, suff = 1;
-        int ans = Integer.MIN_VALUE;
-        for (int i = 0; i < n; i++) {
-            if (pre == 0) pre = 1;
-            if (suff == 0) suff = 1;
-            pre *= arr[i];
-            suff *= arr[n - i - 1];
-            ans = Math.max(ans, Math.max(pre, suff));
+        int maxProduct = arr[0];
+        int minProduct = arr[0];
+        int ans = arr[0];
+
+        for (int i = 1; i < n; i++) {
+            if (arr[i] < 0) {
+                // Swap maxProduct and minProduct when arr[i] is negative
+                int temp = maxProduct;
+                maxProduct = minProduct;
+                minProduct = temp;
+            }
+
+            // Calculate the maximum product ending at the current position
+            maxProduct = Math.max(arr[i], maxProduct * arr[i]);
+            // Calculate the minimum product ending at the current position
+            minProduct = Math.min(arr[i], minProduct * arr[i]);
+
+            // Update the global maximum product found so far
+            ans = Math.max(ans, maxProduct);
         }
+
         return ans;
     }
 }
