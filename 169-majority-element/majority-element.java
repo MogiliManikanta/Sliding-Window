@@ -1,26 +1,15 @@
 class Solution {
-    public int majorityElement(int[] v) {
-       //size of the given array:
-        int n = v.length;
-        int cnt = 0; // count
-        int el = 0; // Element
-        //applying the algorithm:
-        for (int i = 0; i < n; i++) {
-            if (cnt == 0) {
-                cnt = 1;
-                el = v[i];
-            } else if (el == v[i]) cnt++;
-            else cnt--;
+    public int majorityElement(int[] nums) {
+        for (int i = 0; i < nums.length; i++) {
+            int count = 0;
+            for (int j = i; j < nums.length; j++) {
+                if (nums[i] == nums[j]) count++;
+            }
+
+            if (count > nums.length / 2)
+                return nums[i];
         }
 
-        //checking if the stored element
-        // is the majority element:
-        int cnt1 = 0;
-        for (int i = 0; i < n; i++) {
-            if (v[i] == el) cnt1++;
-        }
-
-        if (cnt1 > (n / 2)) return el;
-        return -1; 
+        return -1;
     }
 }
