@@ -1,46 +1,40 @@
 class Solution {
     public int[] searchRange(int[] nums, int target) {
-        int[] result = new int[2];
-        result[0]=findFirstPosition(nums,target);
-        result[1]=findLastPosition(nums,target);
-        return result;
+        int first = firstPositionHelper(nums,target);
+        if(first==-1) return new int[]{-1,-1};
+        int last=lastPositionHelper(nums,target);
+        return new int[]{first,last};
     }
-    private int findFirstPosition(int[] nums,int target){
-        int low=0;
-        int high=nums.length-1;
-        int ans=-1;
-        while(low <= high){
-            int mid = low+(high-low)/2;
-            if(nums[mid]<target){
-                low=mid+1;
-            }
-            else if(nums[mid]>target){
-                high=mid-1;
-            }
-            else{ // nums[mid]==target
-                ans=mid;
-                high=mid-1;
-            }
-        }
-        return ans;
-    }
-    private int findLastPosition(int[] nums,int target){
-        int low=0;
-        int high=nums.length-1;
-        int ans=-1;
+    public int firstPositionHelper(int[] nums,int target){
+        int low=0,high=nums.length-1,first=-1;
         while(low<=high){
-            int mid = low+(high-low)/2;
-            if(nums[mid]<target){
-                low=mid+1;
-            }
-            else if(nums[mid]>target){
+            int mid=(low+(high-low)/2);
+            if(nums[mid]==target){
+                first=mid;
                 high=mid-1;
             }
-            else{ // nums[mid]==target
-                ans=mid;
+            else if(nums[mid]<target){
                 low=mid+1;
+            }else{
+                high=mid-1;
             }
         }
-        return ans;
+        return first;
+    }
+    public int lastPositionHelper(int[] nums,int target){
+        int low=0,high=nums.length-1,last=-1;
+        while(low<=high){
+            int mid=(low+(high-low)/2);
+            if(nums[mid]==target){
+                last=mid;
+                low=mid+1;
+            }
+            else if(nums[mid]<target){
+                low=mid+1;
+            }else{
+                high=mid-1;
+            }
+        }
+        return last;
     }
 }
