@@ -4,7 +4,11 @@ class Solution {
         int ans=Integer.MAX_VALUE;
         while(low<=high){
             int mid=(low+(high-low)/2);
-            if(arr[low]<=arr[mid]){
+            if(arr[low]<=arr[high]){
+                if(ans>arr[low]) ans=arr[low];
+                return ans;
+            }
+            else if(arr[low]<=arr[mid]){
                 if(arr[low]<ans){
                     ans=arr[low];
                 }
