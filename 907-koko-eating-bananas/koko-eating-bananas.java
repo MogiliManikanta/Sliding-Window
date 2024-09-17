@@ -10,7 +10,8 @@ class Solution {
     public int helperFunction(int mid,int[] piles,int hours){
         int ans=0,n=piles.length;
         for(int i=0;i<n;i++){
-            ans += Math.ceil((double)piles[i]/(double)mid);
+            // ans += Math.ceil((double)piles[i]/(double)mid);
+            ans+=(piles[i]+mid-1)/mid;
             if(ans>hours) return -1;
         }
         return 1;
