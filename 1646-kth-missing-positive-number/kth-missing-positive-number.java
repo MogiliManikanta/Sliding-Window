@@ -11,7 +11,7 @@ class Solution {
         return high+1+k;
         // arr[high]+more
         // more = k-missing
-        // missing=arr[high]-(high-1)
+        // missing=arr[high]-(high+1) = arr[high]-high-1
         // arr[high]+k-missing
         // arr[high]+k-arr[high]+high+1
         // k+high+1
@@ -25,3 +25,12 @@ class Solution {
     // lies in between 
 
 }
+//  int numberMissingInhigh= arr[high] - (high+1);
+       // int moreNummberRequired= k-numberMissingInhigh;
+        // result= arr[high]+moreNummberRequired 
+       //.      arr[high] + k-numberMissingInhigh;
+       //         arr[high] + k- ( arr[high] - (high+1));
+       //       arr[high] + k-  arr[high] + high+1 
+       // high + 1+ k
+       // low +k 
+    //   return low +k ;
