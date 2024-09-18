@@ -1,40 +1,41 @@
 class Solution {
-    public int minDays(int[] bloomDay, int m, int k) {
-        long val=m*k;
-        long size=bloomDay.length;
-        if(size<val) return -1;
-        int low=Integer.MAX_VALUE;
-        int high=Integer.MIN_VALUE;
-        for(int i=0;i<bloomDay.length;i++){
-            low=Math.min(low,bloomDay[i]);
-            high=Math.max(high,bloomDay[i]);
+    public int minDays(int[] arr, int m, int k) {
+        long val = (long) m * k;
+        int n = arr.length; // Size of the array
+        if (val > n) return -1; // Impossible case.
+        // Find maximum and minimum:
+        int mini = Integer.MAX_VALUE, maxi = Integer.MIN_VALUE;
+        for (int i = 0; i < n; i++) {
+            mini = Math.min(mini, arr[i]);
+            maxi = Math.max(maxi, arr[i]);
         }
-        int ans=-1;
-        while(low<=high){
-            int mid=(low+(high-low)/2);
-            if(helperFunction(mid,m,k,bloomDay)){
-                ans=mid;
-                high=mid-1;
-            }
-            else{
-                low=mid+1;
+
+        // Apply binary search:
+        int low = mini, high = maxi;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (possible(arr, mid, m, k)) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
             }
         }
-        return ans;
+        return low;
     }
-    boolean helperFunction(int mid,int m,int k,int[] bloomDay){
-        int cnt=0;
-        int noOfBouques =0;
-        for(int i=0;i<bloomDay.length;i++){
-            if(bloomDay[i]<=mid){
+    public  boolean possible(int[] arr, int day, int m, int k) {
+        int n = arr.length; // Size of the array
+        int cnt = 0;
+        int noOfB = 0;
+        // Count the number of bouquets:
+        for (int i = 0; i < n; i++) {
+            if (arr[i] <= day) {
                 cnt++;
-            }
-            else{
-                noOfBouques +=(cnt/k); 
-                cnt=0;
+            } else {
+                noOfB += (cnt / k);
+                cnt = 0;
             }
         }
-        noOfBouques+=(cnt/k);
-        return noOfBouques>=m;
+        noOfB += (cnt / k);
+        return noOfB >= m;
     }
 }
