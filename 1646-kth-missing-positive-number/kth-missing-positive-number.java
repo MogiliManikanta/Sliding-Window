@@ -34,3 +34,38 @@ class Solution {
        // high + 1+ k
        // low +k 
     //   return low +k ;
+
+
+
+
+
+    // 2,3,4,7,11
+    // 0 1 2 3  4    
+    //     mid = 4
+    //     missing = 11 - (4+1) = 6    potential = 3
+
+    // 7 + (k - 7-(3+1))
+
+
+
+
+
+
+
+    // binary Search 
+    //     index -> Number
+    //     0->1
+    //     1->2
+    //     ....
+    //     5->6
+    //     if arr[m]!= m+1 there have been missing Numbers
+    //         missing numbers at m is arr[m]-(m+1)
+    //         if this <k then look right as there need to be more missing Numbers 
+    //         else look left
+    //     when the loop ends where l>r, return l+k
+        
+
+        // arr[r]-(r+1) numbers missing so far
+        // k-(arr[r]-(r+1)) missing numbers left needed
+        // k-(arr[r]-(r+1))+arr[r]  
+        // return k+r+1;
