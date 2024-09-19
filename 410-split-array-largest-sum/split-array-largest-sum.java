@@ -1,39 +1,33 @@
 class Solution {
-    public int countPartitions(int[] a, int maxSum) {
-        int n = a.length; //size of array.
-        int partitions = 1;
-        long subarraySum = 0;
-        for (int i = 0; i < n; i++) {
-            if (subarraySum + a[i] <= maxSum) {
-                //insert element to current subarray
-                subarraySum += a[i];
-            } else {
-                //insert element to next subarray
-                partitions++;
-                subarraySum = a[i];
+    public int splitArray(int[] nums, int k) {
+        int maxi =0,sum=0;
+        for(int i=0;i<nums.length;i++){
+            maxi=Math.max(maxi,nums[i]);
+            sum+=nums[i];
+        }
+        int low=maxi,high=sum,ans=-1;
+        while(low<=high){
+            int mid=(low+(high-low)/2);
+            if(possible(mid,k,nums)){
+                high=mid-1;
+                ans=mid;
+            }else{
+                low=mid+1;
             }
         }
-        return partitions;
+        return ans;
     }
-    public int splitArray(int[] a, int k) {
-        int low = a[0];
-        int high = 0;
-        //find maximum and summation:
-        for (int i = 0; i < a.length; i++) {
-            low = Math.max(low, a[i]);
-            high += a[i];
-        }
-
-        //Apply binary search:
-        while (low <= high) {
-            int mid = (low + high) / 2;
-            int partitions = countPartitions(a, mid);
-            if (partitions > k) {
-                low = mid + 1;
-            } else {
-                high = mid - 1;
+    public boolean possible(int limit,int k,int[] nums){
+        int noOfSubarrays=1;
+        int capacity=0;
+        for(int i=0;i<nums.length;i++){
+            if(capacity+nums[i]>limit){
+                capacity=nums[i];
+                noOfSubarrays++;
+            }else{
+                capacity+=nums[i];
             }
         }
-        return low;
+        return noOfSubarrays<=k;
     }
 }
