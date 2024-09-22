@@ -1,29 +1,21 @@
 class Solution {
-    public int maxSubArray(int[] arr) {
-        int maxi = Integer.MIN_VALUE; // maximum sum
-        int sum = 0;
-        int n=arr.length;
-        int start = 0;
-        int ansStart = -1, ansEnd = -1;
-        for (int i = 0; i < n; i++) {
-
-            if (sum == 0) start = i; // starting index
-
-            sum += arr[i];
-
-            if (sum > maxi) {
-                maxi = sum;
-
-                ansStart = start;
-                ansEnd = i;
+    public int maxSubArray(int[] nums) {
+        int ansStart=-1,ansEnd=-1,start=-1,sum=0,maxi=Integer.MIN_VALUE;
+        for(int i=0;i<nums.length;i++){
+            if(sum==0){
+                start=i;
             }
-
-            // If sum < 0: discard the sum calculated
-            if (sum < 0) {
-                sum = 0;
+            sum+=nums[i];
+            if(sum>maxi){
+                ansStart=start;
+                ansEnd=i;
+                maxi=sum;
+            }
+            if(sum<0){
+                sum=0;
             }
         }
-            return maxi;
+        return maxi;
     }
 }
 /*class Solution 
