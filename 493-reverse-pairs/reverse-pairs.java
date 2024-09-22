@@ -28,7 +28,7 @@ class Solution {
         int right=mid+1;
         for(int i=low;i<=mid;i++){
             while(right<=high && nums[i]> 2L*nums[right]) right++;
-            cnt+=right-(mid+1);
+            cnt+=right-(mid+1);//important
         }
         return cnt;
     }
