@@ -1,74 +1,34 @@
-/*class Solution {
-    public int[] findPeakGrid(int[][] mat) {
-        
-    }
-}*/
-public class Solution {
-
-    public int findMaxelement(int[][]mat , int n , int m , int col){
-
-        int maxValue=-1;
-
-        int index=-1;
-
- 
-
-        for(int i=0 ; i<n ; i++){
-
-            if(mat[i][col]>maxValue){
-
-                maxValue=mat[i][col];
-
-                index=i;
-
-            }
-
-        }
-
-        return index;
-
-    }
-
-    public  int[] findPeakGrid(int [][]G){
-
-        // Write your code here.
-
-        int n=G.length;
-
-        int m=G[0].length;
-
- 
-
-        int low=0 , high=m-1;
-
+class Solution {
+    public int[] findPeakGrid(int[][] matrix) {
+        int n=matrix.length;
+        int m=matrix[0].length;
+        int low=0;
+        int high=m-1;
         while(low<=high){
-
-            int mid=(low+high)/2;
-
-            int rowMax=findMaxelement(G, n, m, mid);
-
-            int left=0<=mid-1?G[rowMax][mid-1]:-1;
-
-            int right=mid+1<m?G[rowMax][mid+1]:-1;
-
- 
-
-            if(G[rowMax][mid]>left && G[rowMax][mid]>right){
-
-                return new int[] {rowMax , mid};
-
+            int mid=(low+(high-low)/2);
+            int maxElementInColumnRowIndex = findMax(matrix,mid);
+            int leftElement = (mid-1>=0)?matrix[maxElementInColumnRowIndex][mid-1]:-1;
+            int rightElement = (mid+1<m)?matrix[maxElementInColumnRowIndex][mid+1]:-1;
+            if(matrix[maxElementInColumnRowIndex][mid]>leftElement && matrix[maxElementInColumnRowIndex][mid]>rightElement){
+                return new int[]{maxElementInColumnRowIndex,mid};
             }
-
-            else if(G[rowMax][mid]<left)   high=mid-1;
-
-            else low=mid+1;
-
+            else if(matrix[maxElementInColumnRowIndex][mid]<rightElement){
+                low=mid+1;
+            }
+            else{
+                high=mid-1;
+            }
         }
-
-        return new int[]{-1 , -1};
-
- 
-
+        return new int[]{-1,-1};
     }
-
+    public int findMax(int[][] matrix,int column){
+        int maxi=Integer.MIN_VALUE,index=-1;
+        for(int i=0;i<matrix.length;i++){
+            if(matrix[i][column]>maxi){
+                maxi=matrix[i][column];
+                index=i;
+            }
+        }
+        return index;
+    }
 }
