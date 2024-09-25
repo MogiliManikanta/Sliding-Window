@@ -1,19 +1,19 @@
 class Solution {
     public int lengthOfLongestSubstring(String s) {
-        Map<Character, Integer> counts = new HashMap<>(); // Frequencies of chars in the window
-        int res = 0;
-        int i = 0; // Left pointer
-        for (int j = 0; j < s.length(); j++) {
-            char currentChar = s.charAt(j);
-            counts.put(currentChar, counts.getOrDefault(currentChar, 0) + 1); // Add right pointer to the window
-
-            while (counts.get(currentChar) > 1) { // While the element at the right pointer created a repeat
-                char leftChar = s.charAt(i);
-                counts.put(leftChar, counts.get(leftChar) - 1); // While condition not valid, remove the element at the left pointer from the window by decreasing its count, and then increment the left pointer. In this case, it is while s[j] is a duplicate (we will stop after removing the duplicate copy of s[j]).
-                i++; // Increment the left pointer
-            } // Now the condition is valid
-            res = Math.max(res, j - i + 1); // Update the global max with the length of the current valid substring
+        Set<Character> set = new HashSet<>();
+        if(s.length()==0) return 0;
+        int left=0,right=0,len=s.length(),maxi=Integer.MIN_VALUE;
+        while(right<len){
+            if(set.contains(s.charAt(right))){
+                while(left<right && set.contains(s.charAt(right))){
+                    set.remove(s.charAt(left));
+                    left++;
+                }
+            }
+            set.add(s.charAt(right));
+            maxi=Math.max(maxi,right-left+1);
+            ++right;
         }
-        return res;
+        return maxi;
     }
 }
