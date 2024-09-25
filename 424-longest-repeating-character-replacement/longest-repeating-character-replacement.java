@@ -1,5 +1,25 @@
 class Solution {
     public int characterReplacement(String s, int k) {
+        int[] letters = new int[26];
+        int left=0,right=0,maxi=0,maxFreq=0;
+        while(right<s.length()){
+            letters[s.charAt(right)-'A']++;
+            maxFreq=Math.max(maxFreq,letters[s.charAt(right)-'A']);
+            if(right-left+1-(maxFreq)>k){
+                letters[s.charAt(left)-'A']--;
+                left++;
+            }
+            if(right-left+1-(maxFreq)<=k){
+                maxi=Math.max(maxi,right-left+1);
+            }
+            right++;
+        }
+        return maxi;
+    }
+}
+
+/*class Solution {
+    public int characterReplacement(String s, int k) {
         int letters[] = new int[26];
         int left=0,right=0,maxi=0,maxFreq=0;
         while(right<s.length()){
@@ -19,7 +39,8 @@ class Solution {
         }
         return maxi;
     }
-}/*class Solution {
+}
+*//*class Solution {
     public int characterReplacement(String s, int k) {
         int letters[] = new int[26];
         int left=0,right=0,maxi=0,maxFreq=0;
