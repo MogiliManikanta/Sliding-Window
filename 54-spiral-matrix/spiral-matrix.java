@@ -1,36 +1,48 @@
-class Solution {
+public class Solution {
     public List<Integer> spiralOrder(int[][] matrix) {
-        int rowBegin=0,rowEnd=matrix.length-1;
-        int colBegin=0,colEnd=matrix[0].length-1;
+        List<Integer> res = new ArrayList<Integer>();
+        if (matrix.length == 0) {
+            return res;
+        }
+        int rowBegin = 0;
+        int rowEnd = matrix.length-1;
+        int colBegin = 0;
+        int colEnd = matrix[0].length - 1;
         int dir=0;
-        ArrayList<Integer> result= new ArrayList<>();
-        while(rowBegin<=rowEnd && colBegin <= colEnd) {
-            if(dir==0) {
-                for(int i=colBegin;i<=colEnd;i++) {
-                    result.add(matrix[rowBegin][i]);
+        while (rowBegin <= rowEnd && colBegin <= colEnd) {
+            // Traverse Right
+            if(dir==0){
+                for (int j = colBegin; j <= colEnd; j ++) {
+                    res.add(matrix[rowBegin][j]);
                 }
                 rowBegin++;
             }
-            else if(dir==1) {
-                for(int i=rowBegin;i<=rowEnd;i++) {
-                    result.add(matrix[i][colEnd]);
+            // Traverse Down
+            else if(dir==1){
+                for (int j = rowBegin; j <= rowEnd; j ++) {
+                    res.add(matrix[j][colEnd]);
                 }
                 colEnd--;
             }
-            else if(dir==2) {
-                for(int i=colEnd;i>=colBegin;i--) {
-                    result.add(matrix[rowEnd][i]);
+            else if (dir==2) {
+                // Traverse Left
+                for (int j = colEnd; j >= colBegin; j --) {
+                    res.add(matrix[rowEnd][j]);
                 }
                 rowEnd--;
+
             }
+            
             else{
-                for(int i=rowEnd;i>=rowBegin;i--) {
-                    result.add(matrix[i][colBegin]);
+                // Traver Up
+                for (int j = rowEnd; j >= rowBegin; j --) {
+                    res.add(matrix[j][colBegin]);
                 }
-                colBegin++;
+                colBegin ++;
             }
-            dir = (dir+1)%4;
+            dir=(dir+1)%4;
         }
-        return result;
+        
+        return res;
     }
 }
