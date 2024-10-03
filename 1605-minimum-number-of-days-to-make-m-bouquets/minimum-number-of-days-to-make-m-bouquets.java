@@ -1,41 +1,39 @@
 class Solution {
-    public int minDays(int[] arr, int m, int k) {
-        long val = (long) m * k;
-        int n = arr.length; // Size of the array
-        if (val > n) return -1; // Impossible case.
-        // Find maximum and minimum:
-        int mini = Integer.MAX_VALUE, maxi = Integer.MIN_VALUE;
-        for (int i = 0; i < n; i++) {
-            mini = Math.min(mini, arr[i]);
-            maxi = Math.max(maxi, arr[i]);
+    public int minDays(int[] bloomDay, int m, int k) {
+        int n = bloomDay.length;
+        if(n <m * k) return -1;
+        int low=(int)1e9,high=-(int)1e9;
+        for(int i=0;i<n;i++) {
+            low=Math.min(low,bloomDay[i]);
+            high=Math.max(high,bloomDay[i]);
         }
-
-        // Apply binary search:
-        int low = mini, high = maxi;
-        while (low <= high) {
-            int mid = (low + high) / 2;
-            if (possible(arr, mid, m, k)) {
-                high = mid - 1;
-            } else {
-                low = mid + 1;
+        low=1;
+        int ans=-1;
+        while(low<=high) {
+            int mid = (low+(high-low)/2);
+            if(possible(mid,bloomDay,m,k)) {
+                ans=mid;
+                high=mid-1;
+            }
+            else{
+                low=mid+1;
             }
         }
-        return low;
+        return ans;
     }
-    public  boolean possible(int[] arr, int day, int m, int k) {
-        int n = arr.length; // Size of the array
-        int cnt = 0;
-        int noOfB = 0;
-        // Count the number of bouquets:
-        for (int i = 0; i < n; i++) {
-            if (arr[i] <= day) {
+    public boolean possible(int mid,int[] bloomDay,int m,int k) {
+        int noOfBouqes=0;
+        int cnt=0;
+        for(int i=0;i<bloomDay.length;i++){
+            if(mid>=bloomDay[i]) {
                 cnt++;
-            } else {
-                noOfB += (cnt / k);
-                cnt = 0;
+            }
+            else{
+                noOfBouqes += cnt/k;
+                cnt=0;
             }
         }
-        noOfB += (cnt / k);
-        return noOfB >= m;
+        noOfBouqes+=cnt/k;
+        return noOfBouqes>=m;
     }
 }
