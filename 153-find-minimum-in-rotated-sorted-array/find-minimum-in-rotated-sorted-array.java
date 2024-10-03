@@ -4,7 +4,11 @@ class Solution {
         int ans=(int)1e9;
         while(low <= high) {
             int mid=(low+(high-low)/2);
-            if(nums[low] <= nums[mid]) {
+            if(nums[low]<=nums[high]) {
+                ans=Math.min(nums[low],ans);
+                break;
+            }
+            else if(nums[low] <= nums[mid]) {
                 ans=Math.min(ans,nums[low]);
                 low=mid+1;
             }
