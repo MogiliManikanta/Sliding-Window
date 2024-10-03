@@ -1,34 +1,29 @@
 class Solution {
-    public  int findMax(int[] v) {
-        int maxi = Integer.MIN_VALUE;;
-        int n = v.length;
-        //find the maximum:
-        for (int i = 0; i < n; i++) {
-            maxi = Math.max(maxi, v[i]);
+    public int minEatingSpeed(int[] piles, int h) {
+        int low=(int)1e9,high=-(int)1e9;
+        for(int i=0;i<piles.length;i++) {
+            low=Math.min(low,piles[i]);
+            high=Math.max(high,piles[i]);
         }
-        return maxi;
-    }
-    public int calculateTotalHours(int[] v, int hourly) {
-        int totalH = 0;
-        int n = v.length;
-        //find total hours:
-        for (int i = 0; i < n; i++) {
-            totalH += Math.ceil((double)(v[i]) / (double)(hourly));
-        }
-        return totalH;
-    }
-    public  int minEatingSpeed(int[] v, int h) {
-        int low = 1, high = findMax(v);
-        //apply binary search:
-        while (low <= high) {
-            int mid = (low + high) / 2;
-            int totalH = calculateTotalHours(v, mid);
-            if (totalH <= h) {
-                high = mid - 1;
-            } else {
-                low = mid + 1;
+        low=1;
+        int ans=0;
+        while(low<=high) {
+            int mid = (low + (high-low)/2);
+            if(possible(mid,piles,h)) {
+                ans=mid;
+                high=mid-1;
+            }
+            else {
+                low=mid+1;
             }
         }
-        return low;
+        return ans;
+    }
+    public boolean possible(int mid,int[] piles,long hrs) {
+        long cntHrs=0;
+        for(int i=0;i<piles.length;i++) {
+            cntHrs += (piles[i]+mid-1)/mid;
+        }
+        return cntHrs<=hrs;
     }
 }
