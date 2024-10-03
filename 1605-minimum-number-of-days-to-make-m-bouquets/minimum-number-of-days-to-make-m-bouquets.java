@@ -7,7 +7,7 @@ class Solution {
             low=Math.min(low,bloomDay[i]);
             high=Math.max(high,bloomDay[i]);
         }
-        low=1;
+        // low=1;
         int ans=-1;
         while(low<=high) {
             int mid = (low+(high-low)/2);
@@ -33,7 +33,7 @@ class Solution {
                 cnt=0;
             }
         }
-        noOfBouqes+=cnt/k;
+        noOfBouqes+=cnt/k;//important
         return noOfBouqes>=m;
     }
 }
