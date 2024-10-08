@@ -1,33 +1,34 @@
 class Solution {
     public int splitArray(int[] nums, int k) {
-        int maxi =0,sum=0;
-        for(int i=0;i<nums.length;i++){
-            maxi=Math.max(maxi,nums[i]);
-            sum+=nums[i];
+        int low=0,high=0;
+        for(int i=0;i<nums.length;i++) {
+            low=Math.max(low,nums[i]);
+            high+=nums[i];
         }
-        int low=maxi,high=sum,ans=-1;
-        while(low<=high){
-            int mid=(low+(high-low)/2);
-            if(possible(mid,k,nums)){
-                high=mid-1;
+        int ans=0;
+        while(low<=high) {
+            int mid = low+(high-low)/2;
+            if(possible(mid,nums,k)) {
                 ans=mid;
-            }else{
+                high=mid-1;
+            }
+            else {
                 low=mid+1;
             }
         }
-        return ans;
+        return low;
     }
-    public boolean possible(int limit,int k,int[] nums){
-        int noOfSubarrays=1;
-        int capacity=0;
-        for(int i=0;i<nums.length;i++){
-            if(capacity+nums[i]>limit){
-                capacity=nums[i];
-                noOfSubarrays++;
-            }else{
-                capacity+=nums[i];
+    public boolean possible(int mid,int[] nums,int k){
+        int noOfSub =1,sum=0;
+        for(int i=0;i<nums.length;i++) {
+            if(sum+nums[i]>mid) {
+                noOfSub++;
+                sum=nums[i];
+            }
+            else{
+                sum+=nums[i];
             }
         }
-        return noOfSubarrays<=k;
+        return noOfSub <= k;
     }
 }
