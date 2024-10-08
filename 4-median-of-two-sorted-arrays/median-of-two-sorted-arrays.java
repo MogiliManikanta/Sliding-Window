@@ -9,9 +9,9 @@ class Solution {
         while(low <= high) {
             int mid1 = (low + (high-low)/2);
             int mid2 = left-mid1;
-            int leftElement1 = mid1>0 ? nums1[mid1-1] :Integer.MIN_VALUE;
+            int leftElement1 = mid1-1>=0 ? nums1[mid1-1] :Integer.MIN_VALUE;
             int rightElement1 = mid1<n?nums1[mid1] : Integer.MAX_VALUE;
-            int leftElement2 = mid2>0 ? nums2[mid2-1] : Integer.MIN_VALUE;
+            int leftElement2 = mid2-1>=0 ? nums2[mid2-1] : Integer.MIN_VALUE;
             int rightElement2=mid2<m?nums2[mid2] : Integer.MAX_VALUE;
             if(leftElement1<=rightElement2 && leftElement2 <= rightElement1){
                 if((m+n)%2==0) {
