@@ -1,90 +1,20 @@
 class Solution {
     public List<List<Integer>> generate(int numRows) {
-        List<List<Integer>>result=new ArrayList<>();
-        for(int row=1;row<=numRows;row++){
-            result.add(generateRows(row));
+        List<List<Integer>> list = new ArrayList<>();
+        for(int i=1;i<=numRows;i++) {
+            list.add(generateRows(i));
         }
-        return result;
+        return list;
     }
     public List<Integer> generateRows(int row){
-        List<Integer> tempRow = new ArrayList<>();
-        tempRow.add(1);
-        int res=1;
+        int ans=1;
+        List<Integer> temp = new ArrayList<>();
+        temp.add(ans);
         for(int column=1;column<row;column++){
-            res=res*(row-column);
-            res=res/column;
-            tempRow.add(res);
+            ans=ans*(row-column);
+            ans/=column;
+            temp.add(ans);
         }
-        return tempRow;
+        return temp;
     }
 }
-/***
-
-
-
-
-class Solution {
-    public List<Integer> generateRow(int row) {
-        long ans = 1;
-        List<Integer> ansRow = new ArrayList<>();
-        ansRow.add(1); //inserting the 1st element
-        //calculate the rest of the elements:
-        for (int col = 1; col < row; col++) {
-            ans = ans * (row - col);
-            ans = ans / col;
-            ansRow.add((int)ans);
-        }
-        return ansRow;
-    }
-    public List<List<Integer>> generate(int n) {
-        List<List<Integer>> ans = new ArrayList<>();
-        //store the entire pascal's triangle:
-        for (int row = 1; row <= n; row++) {
-            ans.add(generateRow(row));
-        }
-        return ans;
-    }
-}
-// class Solution {
-//     public List<Integer> generateRow(int n) {
-//         ArrayList<Long> pre = new ArrayList<>();
-//         long mod = 1000000007;
-//         for (int i = 0; i < n; i++) {
-//             ArrayList<Long> current = new ArrayList<>();
-//             for (int j = 0; j < i + 1; j++) {
-//                 if (j == i | j == 0) {
-//                     current.add(1l);
-//                 } else {
-//                     long num = (pre.get(j) + pre.get(j - 1)) % mod;
-//                     current.add(num);
-//                 }
-//             }
-//             pre = current;
-//         }
-        
-//         // Convert ArrayList<Long> to List<Integer>
-//         List<Integer> result = new ArrayList<>();
-//         for (Long num : pre) {
-//             result.add(num.intValue());
-//         }
-//         return result;
-//     }
-
-//     public List<List<Integer>> generate(int n) {
-//         List<List<Integer>> ans = new ArrayList<>();
-//         // Store the entire Pascal's triangle:
-//         for (int row = 1; row <= n; row++) {
-//             ans.add(generateRow(row));
-//         }
-//         return ans;
-//     }
-// }
-
-
-
-
-
-
-
-
- */
