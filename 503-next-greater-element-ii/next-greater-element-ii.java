@@ -8,12 +8,8 @@ class Solution {
                 stack.pop();
             }
             if(i<n){
-            if(stack.isEmpty()) {
-                result[i]=-1;
+                result[i] = stack.isEmpty()?-1:stack.peek();
             }
-            else{
-                result[i] = stack.peek();
-            }}
             stack.push(nums[i%n]);
         }
         return result;
