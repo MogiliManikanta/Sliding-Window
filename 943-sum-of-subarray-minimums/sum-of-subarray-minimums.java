@@ -3,16 +3,16 @@ class Solution {
         int n=arr.length;
         int []nse = nextSmallerElement(arr,n);
         int []pse = previousSmallerElement(arr,n);
-        long answer=0;
+        long result=0;
         int mod = (int)1e9+7;
         for(int i=0;i<n;i++) {
             long leftLen = i-pse[i];
             long rightLen = nse[i]-i;
-            // result +=  (leftLen * rightLen * arr[i])%mod;
-            answer += (long) (i - pse[i]) * (nse[i] - i) % mod * arr[i] % mod;
-            answer %= mod;
+            result +=  (leftLen * rightLen * arr[i])%mod;
+            // answer += (long) (i - pse[i]) * (nse[i] - i) % mod * arr[i] % mod;
+            // answer %= mod;
         }
-        return (int)(answer%mod);
+        return (int)(result%mod);
     }
     public int[] previousSmallerElement(int[] arr,int n) {
         int pse[] = new int[n];
