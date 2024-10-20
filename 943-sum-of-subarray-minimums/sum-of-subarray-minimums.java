@@ -17,7 +17,7 @@ class Solution {
     public int[] previousSmallerElement(int[] arr,int n) {
         int pse[] = new int[n];
         Stack<Integer> stack = new Stack<>();
-        Arrays.fill(pse,-1);
+        // Arrays.fill(pse,-1);
         for(int i=0;i<n;i++){
             while(!stack.isEmpty() && arr[stack.peek()]>=arr[i]){
                 stack.pop();
@@ -36,9 +36,9 @@ class Solution {
     public int[] nextSmallerElement(int[] arr,int n) {
         int[] nse = new int[n];
         Stack<Integer> stack = new Stack<>();
-        Arrays.fill(nse,n);
+        // Arrays.fill(nse,n);
         for(int i=n-1;i>=0;i--) {
-            while(!stack.isEmpty() && arr[stack.peek()]>arr[i]) {
+            while(!stack.isEmpty() && arr[stack.peek()]>arr[i]) {//important
                 stack.pop();
             }
             if(stack.isEmpty()) {
