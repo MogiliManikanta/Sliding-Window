@@ -18,6 +18,7 @@ class Solution {
         int[] result = new int[n];
         Stack<Integer> stack = new Stack<>();
         for(int i=n-1;i>=0;i--){
+            //explain
             while(!stack.isEmpty() && nums[stack.peek()]<=nums[i]){
                 stack.pop();
             }
@@ -31,6 +32,7 @@ class Solution {
         Stack<Integer> stack = new Stack<>();
         int[] result = new int[n];
         for(int i=0;i<n;i++){
+            // explain
             while(!stack.isEmpty() && nums[stack.peek()]<nums[i]){
                 stack.pop();
             }
@@ -55,6 +57,7 @@ class Solution {
         int[] result = new int[n];
         Stack<Integer> stack = new Stack<>();
         for(int i=0;i<n;i++){
+            //explain
             while(!stack.isEmpty() && nums[stack.peek()]>nums[i]){
                 stack.pop();
             }
@@ -73,7 +76,7 @@ class Solution {
         int[] result = new int[n];
         Stack<Integer> stack = new Stack<>();
         for(int i=n-1;i>=0;i--){
-            //remember
+            //explain
             while(!stack.isEmpty() && nums[stack.peek()]>=nums[i]){
                 stack.pop();
             }
