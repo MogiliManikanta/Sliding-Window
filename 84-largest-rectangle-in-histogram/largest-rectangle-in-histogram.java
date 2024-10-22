@@ -5,8 +5,10 @@ class Solution {
         int[] pse = previousSmallerElement(heights);
         int maxArea = Integer.MIN_VALUE;
         for(int i=0;i<n;i++){
-            int area = heights[i]*(nse[i]-pse[i]-1);
-            maxArea = Math.max(maxArea,area);
+            int height = heights[i];
+            int width = nse[i] - pse[i] - 1; // Calculate width between the next and previous smaller elements
+            int area = height * width;
+            maxArea = Math.max(maxArea, area);
         }
         return maxArea;
     }
