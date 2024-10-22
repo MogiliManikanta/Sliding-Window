@@ -1,34 +1,54 @@
 class Solution {
     public int largestRectangleArea(int[] heights) {
-        // Initialize a variable to keep track of the maximum area.
+        int n=heights.length;
+        int[] nse = nextSmallerElement(heights);
+        int[] pse = previousSmallerElement(heights);
         int maxArea = Integer.MIN_VALUE;
-        // Get the length of the input array.
-        int n = heights.length;
-        // Create a stack to store the indices of the heights in ascending order.
-        Stack<Integer> stack = new Stack<>();
-        // Loop through each height and consider an extra iteration with height = 0.
-        for (int i = 0; i <= n; i++) {
-            // While the stack is not empty and the current height is less than or equal
-            // to the height at the index stored in the stack, calculate the area for the
-            // height at the top of the stack.
-            while (!stack.isEmpty() && (i == n || heights[i] <= heights[stack.peek()])) {
-                // Get the height at the top of the stack.
-                int height = heights[stack.pop()];
-                // Calculate the width of the rectangle using the difference between
-                // the current index 'i' and the index at the top of the stack.
-                int width;
-                if (stack.isEmpty()) {
-                    width = i;
-                } else {
-                    width = i - stack.peek() - 1;
-                }
-                // Calculate the area for the current rectangle and update maxArea if needed.
-                maxArea = Math.max(maxArea, width * height);
-            }
-            // Push the current index 'i' onto the stack.
-            stack.push(i);
+        for(int i=0;i<n;i++){
+            int area = heights[i]*(nse[i]-pse[i]-1);
+            maxArea = Math.max(maxArea,area);
         }
-        // Return the maximum area found.
         return maxArea;
     }
+    public int[] nextSmallerElement(int[] nums){
+        Stack<Integer> stack = new Stack<>();
+        int n=nums.length;
+        int[] result = new int[n];
+        for(int i=n-1;i>=0;i--){
+            while(!stack.isEmpty() && nums[stack.peek()]>=nums[i]){
+                stack.pop();
+            }
+            result[i]=stack.isEmpty()?n:stack.peek();
+            stack.push(i);
+        }
+        return result;
+    }
+    public int[] previousSmallerElement(int[] nums){
+        int n=nums.length;
+        int[] result=new int[n];
+        Stack<Integer> stack = new Stack<>();
+        for(int i=0;i<n;i++){
+            while(!stack.isEmpty() && nums[stack.peek()]>=nums[i]){
+                stack.pop();
+            }
+            result[i]=stack.isEmpty()?-1:stack.peek();
+            stack.push(i);
+        }
+        return result;
+    }
 }
+/**
+class Solution {
+    public int largestRectangleArea(int[] heights) {
+        int maxArea=0;
+        int n=heights.length;
+        for(int i=0;i<n;i++){
+            int minHeight = Integer.MAX_VALUE;
+            for(int j=i;j<n;j++){
+                minHeight = Math.min(minHeight,heights[j]);
+                maxArea = Math.max(maxArea,minHeight*(j-i+1));
+            }
+        }
+        return maxArea;
+    }
+} */
