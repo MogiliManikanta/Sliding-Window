@@ -1,30 +1,41 @@
 class Solution {
-    public String removeKdigits(String s, int k) {
-        int size = s.length();
-        if(size == k) return "0";
-        int count = 0;
-        Stack<Character>st = new Stack();
-        while(count < size){
-            while(k>0 && !st.isEmpty() && st.peek()>s.charAt(count)){
-                st.pop();
+    public String removeKdigits(String num, int k) {
+        int n = num.length();
+        if (k >= n) return "0"; // If k is greater than or equal to length, return "0"
+        
+        Stack<Character> stack = new Stack<>();
+        
+        // Build the smallest possible number using stack
+        for (int i = 0; i < num.length(); i++) {
+            char ch = num.charAt(i);
+            while (!stack.isEmpty() && k > 0 && stack.peek() > ch) {
+                stack.pop();
                 k--;
             }
-            st.push(s.charAt(count));
-            count++;
+            stack.push(ch);
         }
-        //edge case handle -> repeating string 1111
-        while(k-->0){
-            st.pop();
+        
+        // If there are still digits to remove, remove from the end
+        while (k > 0 && !stack.isEmpty()) {
+            stack.pop();
+            k--;
         }
-        StringBuilder sb = new StringBuilder();
-        while(!st.isEmpty()){
-            char cur = st.pop();
-            sb.append(cur);
+        
+        // Build the final number
+        StringBuilder rev = new StringBuilder();
+        while (!stack.isEmpty()) {
+            rev.append(stack.pop());
         }
-        sb.reverse();
-        while(sb.length()>1 && sb.charAt(0)=='0'){ //remove leading zeroes
-            sb.deleteCharAt(0);
+        
+        // Reverse the result to get the correct order
+        rev.reverse();
+        
+        // Remove leading zeros
+        while (rev.length() > 0 && rev.charAt(0) == '0') {
+            rev.deleteCharAt(0);
         }
-        return sb.toString();
+        
+        // If the string is empty, return "0"
+        return rev.length() == 0 ? "0" : rev.toString();
     }
 }
