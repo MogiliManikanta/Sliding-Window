@@ -22,7 +22,11 @@ class Solution {
         int left=0,right=0,maxi=0;
         while(right<s.length()){
             if(map.containsKey(s.charAt(right))){
-                left = Math.max(map.get(s.charAt(right))+1,left);
+                // left = Math.max(map.get(s.charAt(right))+1,left);
+                int temp=map.get(s.charAt(right));
+                if(temp>=left){
+                    left=temp+1;
+                }
            }
            maxi=Math.max(maxi,right-left+1);
            map.put(s.charAt(right),right);
