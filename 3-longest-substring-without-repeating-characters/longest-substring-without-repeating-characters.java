@@ -1,4 +1,4 @@
-class Solution {
+/*class Solution {
     public int lengthOfLongestSubstring(String s) {
         int maxLen=0;
         int n=s.length();
@@ -15,8 +15,8 @@ class Solution {
         }
         return maxLen;
     }
-}
-/*class Solution {
+}*/
+class Solution {
     public int lengthOfLongestSubstring(String s) {
         Map<Character,Integer>map = new HashMap<>();
         int left=0,right=0,maxi=0;
@@ -30,7 +30,7 @@ class Solution {
         }
         return maxi;
     }
-}*/
+}
 /**
  * class Solution {
  * public int lengthOfLongestSubstring(String s) {
