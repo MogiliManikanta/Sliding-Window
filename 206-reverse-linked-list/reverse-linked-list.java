@@ -10,6 +10,19 @@
  */
 class Solution {
     public ListNode reverseList(ListNode head) {
+        if(head==null || head.next==null) {
+            return head;
+        }
+        
+        ListNode newNode = reverseList(head.next);
+        ListNode front = head.next;
+        front.next =head;
+        head.next=null;
+        return newNode;
+    }
+}
+/**class Solution {
+    public ListNode reverseList(ListNode head) {
         if(head==null || head.next==null) return head;
         ListNode last = null;
         ListNode current = head;
@@ -22,4 +35,4 @@ class Solution {
         }
         return last;
     }
-}
+} */
