@@ -7,12 +7,14 @@ class Solution {
             //     start=i;
             // }
             sum+=nums[i];
+            
             if(sum>maxi){
                 // ansStart=start;
                 // ansEnd=i;
                 maxi=sum;
             }
             if(sum<0) sum=0;
+            
         }
         return maxi;
     }
