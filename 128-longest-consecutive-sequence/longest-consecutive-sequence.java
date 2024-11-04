@@ -5,7 +5,7 @@ class Solution {
         for(int i : nums){
             set.add(i);
         }
-        for(int i : nums){
+        for(int i : set){
             if(!set.contains(i-1)){
                 int cnt=0;
                 int x=i;
