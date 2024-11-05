@@ -2,6 +2,46 @@ class Solution {
     public void setZeroes(int[][] matrix) {
         int row=matrix.length;
         int column=matrix[0].length;
+        int col0=0;
+        for(int i=0;i<row;i++){
+            for(int j=0;j<column;j++){
+                if(matrix[i][j]==0){
+                    //mark the row
+                    matrix[i][0]=0;
+                    if(j!=0){
+                        // mark column
+                        matrix[0][j]=0;
+                    }
+                    else{
+                        col0=1;
+                    }
+                }
+            }
+        }
+        for(int i=1;i<row;i++){
+            for(int j=1;j<column;j++){
+                if(matrix[0][j]==0 || matrix[i][0]==0){
+                    matrix[i][j]=0;
+                }
+            }
+        }
+
+        if(matrix[0][0]==0){
+            for(int i=0;i<column;i++){
+                matrix[0][i]=0;
+            }
+        }
+        if(col0==1){
+            for(int i=0;i<row;i++){
+                matrix[i][0]=0;
+            }
+        }
+    }
+}
+/**class Solution {
+    public void setZeroes(int[][] matrix) {
+        int row=matrix.length;
+        int column=matrix[0].length;
         int[] rowMark = new int[row];
         int[] columnMark = new int[column];
         for(int i=0;i<row;i++){
@@ -54,4 +94,4 @@ class Solution {
             matrix[i][column]=-1;}
         }
     }
-} */
+} */ 
