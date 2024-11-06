@@ -1,48 +1,38 @@
-public class Solution {
+class Solution {
     public List<Integer> spiralOrder(int[][] matrix) {
-        List<Integer> res = new ArrayList<Integer>();
-        if (matrix.length == 0) {
-            return res;
-        }
-        int rowBegin = 0;
-        int rowEnd = matrix.length-1;
-        int colBegin = 0;
-        int colEnd = matrix[0].length - 1;
+        int rowBegin =0;
+        int rowEnd =matrix.length-1;
+        int colBegin=0;
+        int colEnd = matrix[0].length-1;
+        List<Integer> list = new ArrayList<>();
         int dir=0;
-        while (rowBegin <= rowEnd && colBegin <= colEnd) {
-            // Traverse Right
+        while(rowBegin <= rowEnd && colBegin <= colEnd) {
             if(dir==0){
-                for (int j = colBegin; j <= colEnd; j ++) {
-                    res.add(matrix[rowBegin][j]);
+                for(int i=colBegin;i <= colEnd;i++){
+                    list.add(matrix[rowBegin][i]);
                 }
                 rowBegin++;
             }
-            // Traverse Down
             else if(dir==1){
-                for (int j = rowBegin; j <= rowEnd; j ++) {
-                    res.add(matrix[j][colEnd]);
+                for(int i=rowBegin;i <= rowEnd;i++){
+                    list.add(matrix[i][colEnd]);
                 }
                 colEnd--;
             }
-            else if (dir==2) {
-                // Traverse Left
-                for (int j = colEnd; j >= colBegin; j --) {
-                    res.add(matrix[rowEnd][j]);
+            else if(dir==2){
+                for(int i=colEnd;i>=colBegin;i--){
+                    list.add(matrix[rowEnd][i]);
                 }
                 rowEnd--;
-
             }
-            
             else{
-                // Traver Up
-                for (int j = rowEnd; j >= rowBegin; j --) {
-                    res.add(matrix[j][colBegin]);
+                for(int i=rowEnd;i>=rowBegin;i--){
+                    list.add(matrix[i][colBegin]);
                 }
-                colBegin ++;
+                colBegin++;
             }
             dir=(dir+1)%4;
         }
-        
-        return res;
+        return list;
     }
 }
