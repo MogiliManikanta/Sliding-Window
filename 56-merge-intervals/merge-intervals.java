@@ -1,16 +1,16 @@
 class Solution {
     public int[][] merge(int[][] intervals) {
-        Arrays.sort(intervals, new Comparator<int[]>(){
-            public int compare(int[] a,int[] b){
-                return a[0]-b[0];
-            }
-        });
-        List<int[]> list = new ArrayList<>();
-        for(int[] i : intervals){
+       List<int[]> list = new ArrayList<>();
+       Arrays.sort(intervals, new Comparator<int[]>(){
+        public int compare(int[] a,int[] b){
+            return a[0]-b[0];
+        }
+       });
+        for(int[] i : intervals ){
             int start = i[0];
             int end = i[1];
-            if(list.isEmpty() || list.get(list.size()-1)[1]<start){
-                list.add(i);
+            if(list.size()==0 || list.get(list.size()-1)[1]<start){
+                list.add(new int[]{start,end});
             }
             else{
                 list.get(list.size()-1)[1] = Math.max(list.get(list.size()-1)[1],end);
