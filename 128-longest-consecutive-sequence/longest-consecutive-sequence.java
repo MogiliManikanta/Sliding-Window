@@ -1,55 +1,19 @@
 class Solution {
-    public int longestConsecutive(int[] a) {
-        /*if(nums.length==0){
-            return 0;
+    public int longestConsecutive(int[] nums) {
+        HashSet<Integer> set  = new HashSet<>();
+        for(int i=0;i<nums.length;i++){
+            set.add(nums[i]);
         }
-        HashSet<Integer>set = new HashSet<>();
-        for(int i : nums){
-            set.add(i);
-        }
-        int result=Integer.MIN_VALUE;
-        for(int i : nums){
-            int left = i-1;
-            int right = i+1;
-
-            while(set.remove(left)){
-                left--;
-            }
-
-            while(set.remove(right)){
-                right++;
-            }
-
-            result = Math.max(result,right-left-1);
-            if(set.isEmpty()){
-                return result;
-            }
-        }
-        return result;*/
-        int n = a.length;
-        if (n == 0)
-            return 0;
-
-        int longest = 1;
-        Set<Integer> set = new HashSet<>();
-
-        // put all the array elements into set
-        for (int i = 0; i < n; i++) {
-            set.add(a[i]);
-        }
-
-        // Find the longest sequence
-        for (int it : set) {
-            // if 'it' is a starting number
-            if (!set.contains(it - 1)) {
-                // find consecutive numbers
-                int cnt = 1;
-                int x = it;
-                while (set.contains(x + 1)) {
-                    x = x + 1;
-                    cnt = cnt + 1;
+        int longest=0;
+        for(int ele : set){
+           if(!set.contains(ele-1)){
+            int cnt=0;
+            int x=ele;
+            while(set.contains(x)){
+                    cnt++;
+                    x++;
                 }
-                longest = Math.max(longest, cnt);
+                longest=Math.max(longest,cnt);
             }
         }
         return longest;
